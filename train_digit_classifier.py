@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 
-from models_and_puzzle.models import SudokuNet
+from models_and_puzzle.models.sudokunet import SudokuNet
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.datasets import mnist
-from sklearn.preprocessing import Labelbinarizer
+from sklearn.preprocessing import LabelBinarizer
 from sklearn.metrics import classification_report
 import argparse
 
@@ -12,7 +12,7 @@ ap.add_argument("-m","--model" , required=True , help="path to output model afte
 args = vars(ap.parse_args())
 
 # Learning rate 
-ini_lr = 1e -3
+ini_lr = 1e-3
 EPOCHS = 10
 bs = 128
 
