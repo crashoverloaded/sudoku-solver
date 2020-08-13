@@ -91,8 +91,21 @@ def extract_digit(cell , debug=False):
     mask = np.zeros(thresh.shape , dtype = "uint8")
     cv2.drawContours(mask , [c] , -1 , 255, -1)
 
+# Now after finding the contour , we'll isolate digit
+
     # computing the percentage of masked pixels 
     (h , w) = thresh.shape
     percentFilled = cv2.countNonZero(mask) / float(w*h)
 
-    # if less than 
+    # if less than 3% mask is filled than we are looking at noise and and ignore the contour
+    if percentFilled < 0.03:
+        return None
+
+    # Apply mask to thresh cell
+    digit = cv2.bitwise_and(thresh , thresh , mask=mask)
+
+    # check
+    if debug:
+        cv2.imshow("Digit" , digit)
+        cv2.waitKey(0)
+    return digit
